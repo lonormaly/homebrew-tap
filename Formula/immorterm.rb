@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "Persistent terminal sessions for VS Code - terminals that survive crashes"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "2e8111bb8b97ff12ca793fa595d9276b29c09adaadfda226251b7ec682b484da"
+  url "https://github.com/lonormaly/ImmorTerm/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "9ad962bcd37f83bdeb837e5f6c00594a96a03d1b30ea9f2364258fc3b7589acc"
   license "MIT"
   head "https://github.com/lonormaly/ImmorTerm.git", branch: "main"
 
@@ -23,6 +23,7 @@ class Immorterm < Formula
     (libexec/"screen-cleanup").chmod 0755
     (libexec/"screen-forget").chmod 0755
     (libexec/"screen-forget-all").chmod 0755
+    (libexec/"claude-session-sync").chmod 0755
   end
 
   def caveats

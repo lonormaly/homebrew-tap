@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "Persistent terminal sessions for VS Code - terminals that survive crashes"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "0711c9cef9501bc0ecd1612d26dfbf6280f3a745d1bd13adb7ebc008e2b05314"
+  url "https://github.com/lonormaly/ImmorTerm/archive/refs/tags/v1.1.1.tar.gz"
+  sha256 "9179241f8c33e0de74fed8fe17d90c418b0b1a84ffb84e51ee07547e6f0bb7c0"
   license "MIT"
   head "https://github.com/lonormaly/ImmorTerm.git", branch: "main"
 

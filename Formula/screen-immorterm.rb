@@ -13,31 +13,37 @@ class ScreenImmorterm < Formula
   depends_on "automake" => :build
   depends_on "ncurses"
 
-  # Conflicts with stock screen since they install to the same location
-  conflicts_with "screen", because: "both install a `screen` binary"
-
+  # Does NOT conflict with stock screen - installs as screen-immorterm
   def install
     system "./configure", *std_configure_args,
                           "--enable-colors256",
                           "--enable-rxvt_osc",
                           "--enable-telnet",
-                          "--with-sys-screenrc=#{etc}/screenrc"
+                          "--with-sys-screenrc=#{etc}/screenrc-immorterm"
     system "make"
     system "make", "install"
 
-    # Install completion
-    bash_completion.install "etc/bash_completion.d/screen" => "screen"
+    # Rename binary to screen-immorterm so it doesn't conflict with stock screen
+    mv bin/"screen", bin/"screen-immorterm"
+
+    # Install completion (if it exists)
+    if File.exist?("etc/bash_completion.d/screen")
+      bash_completion.install "etc/bash_completion.d/screen" => "screen-immorterm"
+    end
   end
 
   def caveats
     <<~EOS
       Screen for ImmorTerm has been installed! 🔮
 
+      Run with: screen-immorterm
+
       This is GNU Screen 5.0.1 with patches for:
       • UTF-8 characters in window/tab titles (★, ✳, emoji)
       • Proper hardstatus Unicode support
 
       Used by the ImmorTerm VS Code extension for persistent terminals.
+      Can coexist with the official 'screen' package.
 
       ═══════════════════════════════════════════════════════════════════
       COLORS - Screen 5.0.1 uses NUMERIC syntax (letter codes removed!):
@@ -82,7 +88,7 @@ class ScreenImmorterm < Formula
   end
 
   test do
-    system bin/"screen", "-v"
+    system bin/"screen-immorterm", "-v"
   end
 end
 

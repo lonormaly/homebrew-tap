@@ -1,6 +1,6 @@
-class ScreenUtf8 < Formula
-  desc "GNU Screen with UTF-8 title fix - terminal multiplexer with proper Unicode support"
-  homepage "https://www.gnu.org/software/screen/"
+class ScreenImmorterm < Formula
+  desc "GNU Screen for ImmorTerm - patched with UTF-8 title fix and color support"
+  homepage "https://github.com/lonormaly/ImmorTerm"
   url "https://ftp.gnu.org/gnu/screen/screen-5.0.1.tar.gz"
   sha256 "2dae36f4db379ffcd14b691596ba6ec18ac3a9e22bc47ac239789ab58409869d"
   license "GPL-3.0-or-later"
@@ -31,11 +31,13 @@ class ScreenUtf8 < Formula
 
   def caveats
     <<~EOS
-      GNU Screen with UTF-8 title fix has been installed.
+      Screen for ImmorTerm has been installed! 🔮
 
-      This version includes patches that properly handle UTF-8 characters
-      in terminal window/tab titles and hardstatus, fixing issues where
-      Unicode characters like ★ or ✳ would appear as garbled control characters.
+      This is GNU Screen 5.0.1 with patches for:
+      • UTF-8 characters in window/tab titles (★, ✳, emoji)
+      • Proper hardstatus Unicode support
+
+      Used by the ImmorTerm VS Code extension for persistent terminals.
 
       ═══════════════════════════════════════════════════════════════════
       COLORS - Screen 5.0.1 uses NUMERIC syntax (letter codes removed!):

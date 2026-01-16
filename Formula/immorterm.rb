@@ -6,7 +6,7 @@ class Immorterm < Formula
   license "MIT"
   head "https://github.com/lonormaly/ImmorTerm.git", branch: "main"
 
-  depends_on "screen"
+  depends_on "lonormaly/tap/screen-utf8"
 
   def install
     # Install the main installer script

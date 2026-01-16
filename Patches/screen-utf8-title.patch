@@ -1,0 +1,113 @@
+GNU Screen 5.0.1 UTF-8 Title Fix
+================================
+Fixes UTF-8 characters in window/tab titles (OSC sequences).
+
+Bug: When UTF-8 characters are used in terminal titles (via OSC escape sequences),
+screen decodes them to Unicode code points but then stores them as single bytes,
+truncating characters like ★ (U+2605) to just 0x05, causing garbled display.
+
+Changes:
+1. StringChar() - Re-encode Unicode code points back to UTF-8 for storage
+2. SetXtermOSC() - Use AddRawStr() to bypass UTF-8 re-encoding on output
+3. DCS passthrough - Use AddRawStr() for raw byte output
+4. WT_FLAG - Changed from "2" to "0" for both tab and window titles
+
+Author: Shai Snir <lonormaly@github>
+Date: January 2026
+
+--- a/ansi.c
++++ b/ansi.c
+@@ -1209,10 +1209,34 @@ static void StringStart(Window *win, enum string_t type)
+
+ static void StringChar(Window *win, int c)
+ {
+-	if (win->w_stringp >= win->w_string + MAXSTR - 1)
++	if (win->w_stringp >= win->w_string + MAXSTR - 1) {
+ 		win->w_state = LIT;
+-	else
++		return;
++	}
++	/* Re-encode Unicode code points back to UTF-8 for storage */
++	if (win->w_encoding == UTF8 && c >= 0x80) {
++		if (c < 0x800) {
++			if (win->w_stringp < win->w_string + MAXSTR - 2) {
++				*(win->w_stringp)++ = (c >> 6) | 0xc0;
++				*(win->w_stringp)++ = (c & 0x3f) | 0x80;
++			}
++		} else if (c < 0x10000) {
++			if (win->w_stringp < win->w_string + MAXSTR - 3) {
++				*(win->w_stringp)++ = (c >> 12) | 0xe0;
++				*(win->w_stringp)++ = ((c >> 6) & 0x3f) | 0x80;
++				*(win->w_stringp)++ = (c & 0x3f) | 0x80;
++			}
++		} else {
++			if (win->w_stringp < win->w_string + MAXSTR - 4) {
++				*(win->w_stringp)++ = (c >> 18) | 0xf0;
++				*(win->w_stringp)++ = ((c >> 12) & 0x3f) | 0x80;
++				*(win->w_stringp)++ = ((c >> 6) & 0x3f) | 0x80;
++				*(win->w_stringp)++ = (c & 0x3f) | 0x80;
++			}
++		}
++	} else {
+ 		*(win->w_stringp)++ = c;
++	}
+ }
+
+ /*
+@@ -1314,7 +1338,7 @@ static int StringEnd(Window *win)
+ 		}
+ 		return -1;
+ 	case DCS:
+-		LAY_DISPLAYS(&win->w_layer, AddStr(win->w_string));
++		LAY_DISPLAYS(&win->w_layer, AddRawStr(win->w_string));
+ 		break;
+ 	case AKA:
+ 		if (win->w_title == win->w_akabuf && !*win->w_string)
+--- a/display.c
++++ b/display.c
+@@ -2141,7 +2141,7 @@ void ChangeScrollRegion(int newtop, int newbot)
+ 	D_y = D_x = -1;		/* Just in case... */
+ }
+
+-#define WT_FLAG "2"		/* change to "0" to set both title and icon */
++#define WT_FLAG "0"		/* set both title and icon */
+
+ void SetXtermOSC(int i, char *s, char *t)
+ {
+@@ -2166,7 +2166,7 @@ void SetXtermOSC(int i, char *s, char *t)
+ 	D_xtermosc[i] = 1;
+ 	AddStr("\033]");
+ 	AddStr(oscs[i][0]);
+-	AddStr(s);
++	AddRawStr(s);
+ 	AddStr(t);
+ }
+
+@@ -2197,6 +2197,17 @@ void AddStr(char *str)
+ 		AddChar(c);
+ }
+
++/* AddRawStr - Add string without UTF-8 encoding conversion
++ * Used for OSC sequences where the string is already properly encoded
++ */
++void AddRawStr(char *str)
++{
++	char c;
++
++	while ((c = *str++))
++		AddChar(c);
++}
++
+ void AddStrn(char *str, int n)
+ {
+ 	char c;
+--- a/display.h
++++ b/display.h
+@@ -366,6 +366,7 @@ void  MakeStatus (char *);
+ void  RemoveStatus (void);
+ int   ResizeDisplay (int, int);
+ void  AddStr (char *);
++void  AddRawStr (char *);
+ void  AddStrn (char *, int);
+ void  Flush (int);
+ void  freetty (void);

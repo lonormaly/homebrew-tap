@@ -36,6 +36,15 @@ class ScreenImmorterm < Formula
     <<~EOS
       Screen for ImmorTerm has been installed! 🔮
 
+      ═══════════════════════════════════════════════════════════════════
+      VS CODE USERS - If you installed this after ImmorTerm extension:
+      ═══════════════════════════════════════════════════════════════════
+      1. Close any open terminals in VS Code
+      2. Reload VS Code: Cmd+Shift+P → "Developer: Reload Window"
+         (or press Cmd+R if you have that shortcut)
+      3. Open a new terminal - enjoy persistent terminals! 🎉
+      ═══════════════════════════════════════════════════════════════════
+
       Run with: screen-immorterm
 
       This is GNU Screen 5.0.1 with patches for:

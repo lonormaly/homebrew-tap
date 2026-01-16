@@ -37,16 +37,40 @@ class ScreenUtf8 < Formula
       in terminal window/tab titles and hardstatus, fixing issues where
       Unicode characters like ★ or ✳ would appear as garbled control characters.
 
-      IMPORTANT: Colors in status bar now use NUMERIC syntax (not letters):
-        OLD (deprecated): %{= kK}   (black on bright black)
-        NEW: %{= 0;8}               (0=black, 8=bright black)
-        TRUECOLOR: %{= #FFFFFF;#000000}   (white on black)
+      ═══════════════════════════════════════════════════════════════════
+      COLORS - Screen 5.0.1 uses NUMERIC syntax (letter codes removed!):
+      ═══════════════════════════════════════════════════════════════════
 
-      Add this to your ~/.screenrc for full UTF-8 support:
+      Basic 16 colors (0-15):
+        %{= 1;4}     → red foreground, blue background
+        %{= 7;0}     → white on black
+        %{= 0;7}     → black on white
+
+        Color map: 0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white
+                   8-15 = bright versions (8=bright black/gray, etc.)
+
+      256 colors (16-255):
+        %{= 196;21}  → bright red on bright blue
+        %{= 46;0}    → bright green on black
+
+      Truecolor (#RRGGBB) - requires 'truecolor on':
+        %{= #FF0000;#000000}  → red on black
+        %{= #00FF00;#1A1A1A}  → green on dark gray
+
+      Attributes: d=dim u=underline b=bold r=reverse i=italic l=blink
+        %{= b 7;4}   → bold white on blue
+
+      ═══════════════════════════════════════════════════════════════════
+
+      Add this to your ~/.screenrc for full support:
         defutf8 on
         utf8 on on
         defencoding UTF-8
         encoding UTF-8 UTF-8
+        truecolor on
+
+      Example colorful status bar with emoji:
+        caption always "%{= 7;4} %H %{= 0;6} ★ %n %t %{= 7;1} %Y-%m-%d %c "
 
       For terminal title passthrough:
         hardstatus on

@@ -1,10 +1,10 @@
 class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/8b008b6c0774f548a8c1fc1e8fa4673867ee8754.tar.gz"
-  sha256 "32f6a4e5ce1827819ddf273e32ec947da5e0eeed6093a597228203ce407ea101"
+  url "https://github.com/lonormaly/ImmorTerm/archive/899a6fb37e577f469a26bf920cfc2686dca90512.tar.gz"
+  sha256 "cc3d7529f7e4486fb2529c79ddf8cb5a7359c585176dfc66027be1f43d6195b8"
   license "GPL-3.0-or-later"
-  version "1.1.0"
+  version "1.0.0"
 
   depends_on "ncurses"
 
@@ -32,7 +32,7 @@ class Immorterm < Formula
 
   def caveats
     <<~EOS
-      ImmorTerm 1.1.0 has been installed! 🔮
+      ImmorTerm 1.0.0 has been installed! 🔮
 
       ═══════════════════════════════════════════════════════════════════
       VS CODE USERS:
@@ -44,8 +44,9 @@ class Immorterm < Formula
 
       Run with: immorterm
 
-      Features in 1.1.0:
+      Features:
       • Scrollback dump on reattach - history restored to VS Code scrollback
+        (configure via 'scrollback_dump on/off' in screenrc)
       • UTF-8 characters in window/tab titles (★, ✳, emoji)
       • Synchronous OSC title passthrough to VS Code
       • Log filter for clean restoration (strips cursor positioning)

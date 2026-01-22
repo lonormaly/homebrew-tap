@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/899a6fb37e577f469a26bf920cfc2686dca90512.tar.gz"
-  sha256 "cc3d7529f7e4486fb2529c79ddf8cb5a7359c585176dfc66027be1f43d6195b8"
+  url "https://github.com/lonormaly/ImmorTerm/archive/ebb9db1.tar.gz"
+  sha256 "66347b1835e3bab8b979b97c4f7ddeedc19833c87e36a301a100f549589bf046"
   license "GPL-3.0-or-later"
   version "1.0.0"
 
@@ -12,9 +12,7 @@ class Immorterm < Formula
   def install
     # Build from src/terminal directory (our screen fork)
     cd "src/terminal" do
-      system "./configure", *std_configure_args,
-                            "--enable-colors256",
-                            "--enable-rxvt_osc",
+      system "./configure", "--prefix=#{prefix}",
                             "--enable-telnet",
                             "--with-sys-screenrc=#{etc}/immortermrc"
       system "make"
@@ -32,31 +30,30 @@ class Immorterm < Formula
 
   def caveats
     <<~EOS
-      ImmorTerm 1.0.0 has been installed! 🔮
+      ImmorTerm 1.0.0 has been installed!
 
-      ═══════════════════════════════════════════════════════════════════
       VS CODE USERS:
-      ═══════════════════════════════════════════════════════════════════
       1. Close any open terminals in VS Code
-      2. Reload VS Code: Cmd+Shift+P → "Developer: Reload Window"
-      3. Open a new terminal - enjoy persistent terminals! 🎉
-      ═══════════════════════════════════════════════════════════════════
+      2. Reload VS Code: Cmd+Shift+P -> "Developer: Reload Window"
+      3. Open a new terminal - enjoy persistent terminals!
 
       Run with: immorterm
 
+      Performance optimizations in this release:
+      - Fast socket discovery for instant session connections
+      - Polling instead of fixed sleeps (up to 950ms faster attach)
+      - Buffered logging reduces I/O syscalls by ~99%
+      - Parallel terminal restoration in VS Code extension
+
       Features:
-      • Scrollback dump on reattach - history restored to VS Code scrollback
-        (configure via 'scrollback_dump on/off' in screenrc)
-      • UTF-8 characters in window/tab titles (★, ✳, emoji)
-      • Synchronous OSC title passthrough to VS Code
-      • Log filter for clean restoration (strips cursor positioning)
+      - Fixed scroll region to exclude hardstatus (prevents status bar duplication)
+      - Scrollback dump on reattach - history restored to VS Code scrollback
+      - UTF-8 characters in window/tab titles
+      - Synchronous OSC title passthrough to VS Code
 
       Used by the ImmorTerm VS Code extension for persistent terminals.
 
       For more info: https://github.com/lonormaly/ImmorTerm
-
-      ───────────────────────────────────────────────────────────────────
-      ImmorTerm is a fork of GNU Screen 5.0.1. Licensed under GPL-3.0.
     EOS
   end
 

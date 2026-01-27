@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/ebb9db1.tar.gz"
-  sha256 "66347b1835e3bab8b979b97c4f7ddeedc19833c87e36a301a100f549589bf046"
+  url "https://github.com/lonormaly/ImmorTerm/archive/e6d517c.tar.gz"
+  sha256 "7b89cd7c453ccfa239f299c68ee7f9233ff9bd18104a829aa085fd59755c42af"
   license "GPL-3.0-or-later"
   version "1.0.0"
 
@@ -46,10 +46,11 @@ class Immorterm < Formula
       - Parallel terminal restoration in VS Code extension
 
       Features:
+      - %I escape for last I/O activity timestamp (zero polling!)
       - Fixed scroll region to exclude hardstatus (prevents status bar duplication)
       - Scrollback dump on reattach - history restored to VS Code scrollback
       - UTF-8 characters in window/tab titles
-      - Synchronous OSC title passthrough to VS Code
+      - Fixed stray characters during resize with Claude Code
 
       Used by the ImmorTerm VS Code extension for persistent terminals.
 

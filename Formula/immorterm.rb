@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/e6d517c.tar.gz"
-  sha256 "7b89cd7c453ccfa239f299c68ee7f9233ff9bd18104a829aa085fd59755c42af"
+  url "https://github.com/lonormaly/ImmorTerm/archive/ad9497c.tar.gz"
+  sha256 "cb748a9978eb996711370b74da44fa2656474aa066152e4baec258945f516d4a"
   license "GPL-3.0-or-later"
   version "1.0.0"
 
@@ -51,6 +51,7 @@ class Immorterm < Formula
       - Scrollback dump on reattach - history restored to VS Code scrollback
       - UTF-8 characters in window/tab titles
       - Fixed stray characters during resize with Claude Code
+      - %t window title updates from OSC sequences (without redraw race)
 
       Used by the ImmorTerm VS Code extension for persistent terminals.
 

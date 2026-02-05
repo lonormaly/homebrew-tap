@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/a3b1897.tar.gz"
-  sha256 "0386c329657edcf9319deed0dfb78e0617c495973d865d15fa7dffdd7eff1bfc"
+  url "https://github.com/lonormaly/ImmorTerm/archive/7cae7ef.tar.gz"
+  sha256 "371dc7e07d3453ba4b56573e881e31b6cb74cabfffefe0b84b93c7c8ba4d2d3f"
   license "GPL-3.0-or-later"
   version "1.0.0"
 

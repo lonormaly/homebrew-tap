@@ -1,8 +1,8 @@
 class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
-  url "https://github.com/lonormaly/ImmorTerm/archive/7cae7ef.tar.gz"
-  sha256 "371dc7e07d3453ba4b56573e881e31b6cb74cabfffefe0b84b93c7c8ba4d2d3f"
+  url "https://github.com/lonormaly/ImmorTerm/archive/v1.0.0.tar.gz"
+  sha256 "94db20d31a0fdbc68c3ca944f348332e4dbd30a5424db3988b6713c5b9a92419"
   license "GPL-3.0-or-later"
   version "1.0.0"
 
@@ -32,28 +32,23 @@ class Immorterm < Formula
     <<~EOS
       ImmorTerm 1.0.0 has been installed!
 
+      FEATURES:
+      - OpenMemory integration for persistent Claude memory
+      - Memory Doctor: Run 'immorterm doctor' to diagnose memory services
+      - Background memory consolidation for Claude Code sessions
+      - Brain emoji (🧠) in status bar when memory is active
+
       VS CODE USERS:
       1. Close any open terminals in VS Code
       2. Reload VS Code: Cmd+Shift+P -> "Developer: Reload Window"
       3. Open a new terminal - enjoy persistent terminals!
 
+      MEMORY SERVICES:
+      - Enable via VS Code: "ImmorTerm: Configure Memory Services"
+      - Diagnostics: immorterm doctor
+      - Requires Docker Desktop
+
       Run with: immorterm
-
-      Performance optimizations in this release:
-      - Fast socket discovery for instant session connections
-      - Polling instead of fixed sleeps (up to 950ms faster attach)
-      - Buffered logging reduces I/O syscalls by ~99%
-      - Parallel terminal restoration in VS Code extension
-
-      Features:
-      - %Z escape for AI stats via screen command (event-driven, zero polling!)
-      - %I escape for last I/O activity timestamp (zero polling!)
-      - Fixed scroll region to exclude hardstatus (prevents status bar duplication)
-      - Scrollback dump on reattach - history restored to VS Code scrollback
-      - UTF-8 characters in window/tab titles
-      - Fixed stray characters during resize with Claude Code
-
-      Used by the ImmorTerm VS Code extension for persistent terminals.
 
       For more info: https://github.com/lonormaly/ImmorTerm
     EOS

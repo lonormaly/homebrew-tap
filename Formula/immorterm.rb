@@ -2,11 +2,13 @@ class Immorterm < Formula
   desc "ImmorTerm - The ultimate persistent terminal solution that keeps your agentic workflow uninterrupted"
   homepage "https://github.com/lonormaly/ImmorTerm"
   url "https://github.com/lonormaly/ImmorTerm/archive/v1.0.0.tar.gz"
-  sha256 "abc17d17a3b6d85e94a9e215283ba25ce90a8f622268f7422319a3d4c504232d"
+  sha256 "7c0f5df99f11640196285fcfaff046802afc8d7d0846625e66c3e9e8d65c8958"
   license "GPL-3.0-or-later"
   version "1.0.0"
 
   depends_on "ncurses"
+
+  head "https://github.com/lonormaly/ImmorTerm.git", branch: "main"
 
   # Does NOT conflict with stock screen - installs as immorterm
   def install
@@ -17,8 +19,12 @@ class Immorterm < Formula
                             "--with-sys-screenrc=#{etc}/immortermrc"
       system "make"
 
-      # Install binary as immorterm
-      bin.install "screen" => "immorterm"
+      # HEAD builds produce 'immorterm' directly; tagged releases produce 'screen'
+      if build.head?
+        bin.install "immorterm"
+      else
+        bin.install "screen" => "immorterm"
+      end
 
       # Install man page
       man1.install "doc/screen.1" => "immorterm.1"

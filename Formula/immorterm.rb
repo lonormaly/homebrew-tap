@@ -19,12 +19,8 @@ class Immorterm < Formula
                             "--with-sys-screenrc=#{etc}/immortermrc"
       system "make"
 
-      # HEAD builds produce 'immorterm' directly; tagged releases produce 'screen'
-      if build.head?
-        bin.install "immorterm"
-      else
-        bin.install "screen" => "immorterm"
-      end
+      # Makefile produces 'immorterm' directly (renamed from 'screen')
+      bin.install "immorterm"
 
       # Install man page
       man1.install "doc/screen.1" => "immorterm.1"
